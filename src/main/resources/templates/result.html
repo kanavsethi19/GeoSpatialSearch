@@ -21,8 +21,15 @@
 		<div>
 			<h3 class="text-primary">Details as below are submitted! We will
 				get back to you.</h3>
-			<p class=text-secondary th:text="'Location: ' + ${user.location}" />
-			
+			<p class=text-secondary th:text="'Location: ' + ${user.locations}" />
+			<table class="table table-striped">
+			<tr>
+				<th>NAME:</th>
+				<th>Location: </th>
+			</tr>
+			<tr th:each="loc: ${map}">
+			</tr>
+			</table>
 			<a href="/form">CLICK HERE TO SUBMIT ANOTHER QUERY!</a>
 			<hr>
 		</div>
