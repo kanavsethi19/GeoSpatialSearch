@@ -6,5 +6,5 @@ import java.util.Map;
 import org.apache.solr.client.solrj.SolrServerException;
 
 public interface QuerySolr {
-	public Map<Object, Object>  query(String location) throws SolrServerException, IOException;
+	public Map<Object, Object>  query(String location,Integer miles) throws SolrServerException, IOException;
 }

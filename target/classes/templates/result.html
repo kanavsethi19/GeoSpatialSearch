@@ -19,16 +19,13 @@
 	<div class="middle-box text-center loginscreen animated fadeInDown">
 		<hr>
 		<div>
-			<h3 class="text-primary">Details as below are submitted! We will
-				get back to you.</h3>
-			<p class=text-secondary th:text="'Location: ' + ${user.locations}" />
-			<table class="table table-striped">
-			<tr>
-				<th>NAME:</th>
-				<th>Location: </th>
-			</tr>
-			<tr th:each="loc: ${map}">
-			</tr>
+			
+			<h3 class=text-primary th:text=" 'We have below locations for you to eat food within your said Miles: !' + ${user.miles}"></h3>
+			<table border="1" class="table table-striped">
+				<tr th:each="mapEntry: ${locmap}">
+					<td th:text="${mapEntry.key}" />
+					<td th:text="${mapEntry.value}" />
+				</tr>
 			</table>
 			<a href="/form">CLICK HERE TO SUBMIT ANOTHER QUERY!</a>
 			<hr>

@@ -2,6 +2,8 @@ package com.search.controllers;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +17,13 @@ import com.search.service.QuerySolr;
 
 
 
+/**
+ * @author kanav.sethi
+ *
+ */
 @Controller
 public class LocationController {
+	private static final Logger logger = LoggerFactory.getLogger(LocationController.class);
 	
 	@Autowired
 	private LatLong latLong;
@@ -35,16 +42,18 @@ public class LocationController {
          
         model.addAttribute("user", user);
         try {
-        	System.out.println(user.getLocation());
-        	if(user.getLocation()!=null) {
-        		String[] latLongs = latLong.getLatLongPositions(user.getLocation());
-        		String latlong = latLongs[0] + ","+latLongs[1];
-        		Map<Object,Object> locs= querySolr.query(latlong);
+        	logger.info("User Location: "+user.getLocation());
+        	logger.info("User Miles"+user.getMiles()+"");
+        	
+        	if(user.getLocation()!=null && user.getMiles()!=null) {
+        		String latlong = latLong.getLatLongPositions(user.getLocation());
+        		Map<Object,Object> locs= querySolr.query(latlong,user.getMiles());
         		user.setLocations(locs);
-        		model.addAttribute("map",locs);
+        		model.addAttribute("miles",user.getMiles());
+        		model.addAttribute("locmap",locs);
         	}
         } catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Exception occurred in Location Controller!"+ e);
 		}
         return "result";
     }

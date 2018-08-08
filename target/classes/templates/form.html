@@ -2,6 +2,45 @@
 <head>
 <title>Form Submission</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+.slidecontainer {
+	width: 100%;
+}
+
+.slider {
+	 -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;   
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+	opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+</style>
 <link rel="icon" href="favicon.ico" />
 <title>Registration Page</title>
 
@@ -17,30 +56,49 @@
 <body class="gray-bg">
 	<div class="middle-box text-center loginscreen animated fadeInDown">
 		<div>
-			<h3 class="text-primary">Whats Near You!</h3>
+			<h3 class="text-primary">Restaurants Near You!</h3>
 			<form autocomplete="off" action="#" th:action="@{/form}"
 				th:object="${user}" method="post">
 				<div class="form-group input-group has-feedback">
 
 					<span class="input-group-addon"> <span
-						class="glyphicon glyphicon-earphone"></span>
+						class="glyphicon glyphicon-search"></span>
 					</span> <input type="text" th:field="*{location}"
-						placeholder="Requirement" class="form-control" required /> <span
-						class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						placeholder="We are here to find food places near you! Start typing your location."
+						class="form-control" required /> 
 				</div>
+				<div class="form-group input-group has-feedback">
+
+					<span class="input-group-addon"> <span
+						class="glyphicon glyphicon-question-sign"></span>
+					</span> <br><input type="range" min="1" max="100" value="50"
+						th:field="*{miles}" class="slider" id="milesrange" required /> <br>
+						<p class="text-primary">MILES: <span id="mile"></span>
+				</div>
+				<script>
+					var slider = document.getElementById("milesrange");
+					var output = document.getElementById("mile");
+					output.innerHTML = slider.value;
+
+					slider.oninput = function() {
+						output.innerHTML = this.value;
+					}
+				</script>
 				<input class="btn btn-primary block full-width m-b" type="submit"
 					value="Submit" />
+
 
 			</form>
 		</div>
 	</div>
-	 <!-- Bootstrap -->
-  <script
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous"></script>
+	<!-- Bootstrap -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
 
-  <!-- Bootstrap Validator plugin -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+	<!-- Bootstrap Validator plugin -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
 </body>
 </html>
