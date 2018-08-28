@@ -20,7 +20,11 @@
 		<hr>
 		<div>
 			
-			<h3 class=text-primary th:text=" 'We have below locations for you to eat food within your said Miles: !' + ${user.miles}"></h3>
+			<h3 class=text-primary th:text=" 'We have below locations for you to eat food within your said Miles: ' + ${user.miles}"></h3>
+			<div>
+				<h3 th:if="${querylimit != null}" class=text-primary th:text=" 'Please try again later and resubmit your query! '"></h3>
+			</div>
+			
 			<table border="1" class="table table-striped">
 				<tr th:each="mapEntry: ${locmap}">
 					<td th:text="${mapEntry.key}" />

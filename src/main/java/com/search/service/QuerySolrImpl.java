@@ -14,6 +14,7 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 /**
  * @author kanav.sethi
@@ -23,13 +24,22 @@ import org.springframework.stereotype.Service;
 public class QuerySolrImpl implements QuerySolr {
 	private static final Logger logger = LoggerFactory.getLogger(QuerySolrImpl.class);
 	
+	@Value("${solr.url}")
+	String url;
+	
+	@Value("${solr.collection}")
+	String collection;
+	
 	public Map<Object, Object> query(String location,Integer miles) throws SolrServerException, IOException {
 		Map<Object, Object> locations = new HashMap<>();
 		try {
-			String urlString = "http://localhost:8983/solr/restaurants";
+			String urlString = null ;
+			if(url!=null && collection!=null)
+				urlString = url + collection;
+			
 			SolrClient solrClient = new HttpSolrClient.Builder(urlString).build();
 			SolrQuery parameters = new SolrQuery();
-			logger.info("Location is: "+location);
+			logger.info("Location Of User is: "+location);
 			String loc = location;
 			parameters.set("q", "*:*");
 			parameters.set("fq", "{!geofilt pt=" + loc + " sfield=latlon d="+miles+"}");

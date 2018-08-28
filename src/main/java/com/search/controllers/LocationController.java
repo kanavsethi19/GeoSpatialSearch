@@ -54,6 +54,9 @@ public class LocationController {
         	}
         } catch (Exception e) {
 			logger.info("Exception occurred in Location Controller!"+ e);
+			if(e.getMessage().contains("OVER_QUERY_LIMIT")) {
+				model.addAttribute("querylimit", "Please try again later!");
+			}
 		}
         return "result";
     }
